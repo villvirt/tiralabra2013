@@ -14,6 +14,12 @@ public class Tiralabra {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-     int asd = 0;
+        Lista l = new Lista();
+       for(int i=1; i<=10; i++){
+            Solmu s = new Solmu(Integer.toString((int)(Math.random()*10)+1),(int)(Math.random()*10)+1 );
+            l.lisaaSolmu(s);
+        }
+        System.out.println(l);
+        
     }
 }

@@ -49,7 +49,7 @@ public class Solmu {
       
       //toString
       public String toString(){
-          return key;
+          return "("+key+": "+arvo+")";
       }
   
 }

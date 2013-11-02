@@ -5,6 +5,7 @@ public class Solmu {
       private int arvo;
       private Solmu seuraava;
       private Solmu edellinen;
+      private Lista naapurit = new Lista();
       
       //konstruktorit
       public Solmu(String key, int arvo){
@@ -44,6 +45,13 @@ public class Solmu {
       }
       public void setEdellinen(Solmu edellinen){
           this.edellinen=edellinen;
+      }
+      //naapurit
+      public void lisaaNaapuri(Solmu naapuri){
+          naapurit.lisaaSolmu(naapuri);
+      }
+      public Lista Naapurit(){
+          return naapurit;
       }
       
       

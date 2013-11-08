@@ -13,27 +13,32 @@ public class Verkko {
         System.out.println(verkko);
             //luodaan yhteydet
             Solmu kasiteltava=verkko.listanAlku();
-            int maara;
-            while(kasiteltava!=null){
-                System.out.println("Kasiteltavana solmu "+kasiteltava);
-                 maara = 1;
-               // System.out.println("maara" +maara);
+            int maara; //kuinka monte naapuria
+            while(kasiteltava!=null){ //koko verkko läpi
+                System.out.println("Kasiteltavana solmu "+kasiteltava.getKey());
+                //BUGAA!!
+                maara = 1; //jos >1 jää looppiin!!!
                 for(int j=0; j<maara;j++){
-                    int solmu = (int)(Math.random()*solmujenMaara)+1;
-                    //int solmu=3;
+                    int solmu = (int)(Math.random()*solmujenMaara)+1; //mikä solmu lisätään
                      System.out.println("Lisattava solmu: "+solmu);
                      Solmu lisattava=verkko.listanAlku();
-                     int a=0;
-                     while(a<solmu-1){
+                     int pointer=0; //käydään lista läpi ja etsitään oikea solmu
+                     while(pointer<solmu-1){
                          lisattava=lisattava.seuraavaListassa();
                         // System.out.println("lisattava"+lisattava);
-                         a++;
+                         pointer++;
                      }
-                     System.out.println("Lisattiin solmu "+lisattava);
+                     System.out.println("Lisattiin solmu "+lisattava.getKey());
                      kasiteltava.lisaaNaapuri(lisattava);
                 }
                 kasiteltava=kasiteltava.seuraavaListassa();
              
+            }
+            Solmu pointer = verkko.listanAlku();
+            while(pointer!=null){
+                System.out.print(pointer+" ");
+                System.out.println("Naapurit:" +pointer.naapuritToString());
+                pointer=pointer.seuraavaListassa();
             }
         }
        

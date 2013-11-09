@@ -16,10 +16,12 @@ public class Verkko {
             int maara; //kuinka monte naapuria
             while(kasiteltava!=null){ //koko verkko läpi
                 System.out.println("Kasiteltavana solmu "+kasiteltava.getKey());
-                //BUGAA!!
-                maara = 1; //jos >1 jää looppiin!!!
+                maara = (int)(Math.random()*solmujenMaara)+1; //kuinka monta naapuria
                 for(int j=0; j<maara;j++){
                     int solmu = (int)(Math.random()*solmujenMaara)+1; //mikä solmu lisätään
+                    while(solmu==Integer.parseInt(kasiteltava.getKey())){ //ei itseään naapuriksi
+                         solmu = (int)(Math.random()*solmujenMaara)+1;
+                    }
                      System.out.println("Lisattava solmu: "+solmu);
                      Solmu lisattava=verkko.listanAlku();
                      int pointer=0; //käydään lista läpi ja etsitään oikea solmu
@@ -29,7 +31,8 @@ public class Verkko {
                          pointer++;
                      }
                      System.out.println("Lisattiin solmu "+lisattava.getKey());
-                     kasiteltava.lisaaNaapuri(lisattava);
+                     Solmu kopio = new Solmu(lisattava.getKey(),lisattava.getArvo());
+                     kasiteltava.lisaaNaapuri(kopio);
                 }
                 kasiteltava=kasiteltava.seuraavaListassa();
              

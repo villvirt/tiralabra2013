@@ -1,7 +1,8 @@
-
 package tiralabra;
 
 public class Verkko {
+  
+    
     public Verkko(){
         int solmujenMaara=10;
      Lista verkko = new Lista();
@@ -44,6 +45,6 @@ public class Verkko {
                 pointer=pointer.seuraavaListassa();
             }
         }
-       
+      
     }
 

@@ -1,18 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tiralabra;
 
-/**
- *
- * @author Blackstorm
- */
 public class Tiralabra {
 
-    /**
-     * @param args the command line arguments
-     */
+    //testaillaan
     public static void main(String[] args) {
        int[][] verkko = new int[10][10];
        int[][] verkko2 = new int[5][5];

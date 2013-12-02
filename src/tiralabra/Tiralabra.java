@@ -1,21 +1,32 @@
 
 package tiralabra;
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 public class Tiralabra {
 
     //testaillaan
     public static void main(String[] args) {
-      String[][] verkko = new String[10][10];
-       String[][] verkko2 = new String[][]{{" "," "," "," "," "},
-                                           {" "," "," "," "," "},
-                                           {" "," "," ","r"," "},
-                                           {" "," "," ","r"," "},
-                                           {" "," "," ","r","r"}
+        System.out.println(Color.GREEN);
+        System.out.println(Color.BLUE);
+        GUI g = new GUI();
+        g.setVisible(true);
+        g.setLocationRelativeTo(null);
+        g.setTitle("IDA*");
+        g.setResizable(false);
+        g.pack();
+        g.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     /*String[][] verkko = new String[10][10];
+      String[][] verkko2 = new String[][]{ {" "," "," "," "," "},
+                                           {" "," ","r","r","r"},
+                                           {" "," ","r"," "," "},
+                                           {" "," ","r"," "," "},
+                                           {" "," ","r","r","r"}
     };
        String[][] verkko3 = new String[2][8];
        
         IDA ida = new IDA(verkko, 4, 9, 2, 7);      //verkko,maali_i,maali_j,alku_i,alku_j
-       ida = new IDA(verkko2, 4, 2, 2, 4);
+       ida = new IDA(verkko2, 4, 1, 2, 4);
      //  ida = new IDA(verkko3, 1, 3, 1, 5);
        
        verkko = new String[rnd(19)+2][rnd(19)+2];
@@ -50,7 +61,7 @@ public class Tiralabra {
            System.out.println("");
            }
         System.out.println("");
-        ida = new IDA(verkko,maali_i,maali_j,alku_i,alku_j);
+        ida = new IDA(verkko,maali_i,maali_j,alku_i,alku_j);*/
     }
     private static int rnd(int vali){    
     return (int)(Math.random() * vali);

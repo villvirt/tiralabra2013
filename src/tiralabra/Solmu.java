@@ -13,6 +13,10 @@ public class Solmu {
         this.key = key;
         this.arvo = arvo;
     }
+        public Solmu(String key) {
+        this.key = key;
+
+    }
 
     public Solmu(String key, Solmu seuraava, Solmu edellinen, int arvo) {
         this.key = key;

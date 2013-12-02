@@ -3,6 +3,7 @@ package tiralabra;
 public class Lista {
 
     private Solmu alku;
+    private Solmu loppu;
 
     public Lista() {
     }
@@ -11,11 +12,12 @@ public class Lista {
         //tyhjä lista
         if (alku == null) {
             alku = lisattava;
-        } //lisätään alkuun
+            loppu = lisattava;
+        } //lisätään loppuun
         else {
-            lisattava.setSeuraava(alku);
-            alku.setEdellinen(lisattava);
-            alku = lisattava;
+            lisattava.setEdellinen(loppu);
+            loppu.setSeuraava(lisattava);
+            loppu = lisattava;
         }
     }
 

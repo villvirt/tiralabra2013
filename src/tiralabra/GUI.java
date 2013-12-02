@@ -115,20 +115,27 @@ public class GUI extends JFrame implements ActionListener {
             }
             if (s.seuraavaListassa() == null) {
                 etene.setEnabled(false);
+
                 s = nopeinReitti.listanAlku();
-                while (s!= null) {
+                while (s != null) {
                     koordinaatit = jaaKoordinaatti(s.getKey());
                     solmut[koordinaatit[0]][koordinaatit[1]].setBackground(Color.ORANGE);
                     solmut[koordinaatit[0]][koordinaatit[1]].setForeground(Color.ORANGE);
-                    s=s.seuraavaListassa();
+                    s = s.seuraavaListassa();
                 }
                 solmut[maali_i][maali_j].setBackground(Color.GREEN);
                 solmut[maali_i][maali_j].setForeground(Color.GREEN);
                 solmut[alku_i][alku_j].setBackground(Color.BLUE);
                 solmut[alku_i][alku_j].setForeground(Color.BLUE);
+
+
+
+
             } else if (s.seuraavaListassa() != null) {
                 s = s.seuraavaListassa();
             }
+
+
 
         } else if (nappi.equals("Etsi")) {
 
@@ -159,11 +166,16 @@ public class GUI extends JFrame implements ActionListener {
             } else if (maali_i == -1) {
                 JOptionPane.showMessageDialog(this, "Anna maali", "HUOM!", JOptionPane.ERROR_MESSAGE);
             } else {
-                etene.setEnabled(true);
+
                 IDA ida = new IDA(verkko, maali_i, maali_j, alku_i, alku_j);
                 jono = ida.palautaJono();
                 nopeinReitti = ida.palautaNopeinReitti();
-                s = jono.listanAlku();
+                if (nopeinReitti.listanAlku() == null) {
+                    JOptionPane.showMessageDialog(this, "Reittiä ei löytynyt!", "HUOM!", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    etene.setEnabled(true);
+                    s = jono.listanAlku();
+                }
             }
         }
 

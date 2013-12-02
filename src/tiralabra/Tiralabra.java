@@ -7,8 +7,6 @@ public class Tiralabra {
 
     //testaillaan
     public static void main(String[] args) {
-        System.out.println(Color.GREEN);
-        System.out.println(Color.BLUE);
         GUI g = new GUI();
         g.setVisible(true);
         g.setLocationRelativeTo(null);

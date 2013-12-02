@@ -8,7 +8,8 @@ import java.awt.image.BufferedImage;
 public class GUI extends JFrame implements ActionListener {
 
     private JButton[][] solmut;
-    private Lista reitti;
+    private Lista jono;
+    private Lista nopeinReitti;
     private int i = 20; //verkon koko
     private int j = 20;
     private int alku_i = -1;
@@ -53,6 +54,7 @@ public class GUI extends JFrame implements ActionListener {
         etene = new JButton("Etene");
         etene.addActionListener(this);
         nappiPaneeli.add(etene);
+        etene.setEnabled(false);
         reset = new JButton("Reset");
         reset.addActionListener(this);
         nappiPaneeli.add(reset);
@@ -87,6 +89,7 @@ public class GUI extends JFrame implements ActionListener {
             }
 
         } else if (nappi.equals("Reset")) {
+            etene.setEnabled(false);
             for (int i = 0; i < solmut.length; i++) {
                 for (int j = 0; j < solmut[0].length; j++) {
                     solmut[i][j].setBackground(Color.WHITE);
@@ -105,21 +108,25 @@ public class GUI extends JFrame implements ActionListener {
             int[] koordinaatit = jaaKoordinaatti(s.getKey());
             solmut[koordinaatit[0]][koordinaatit[1]].setBackground(Color.BLACK);
             solmut[koordinaatit[0]][koordinaatit[1]].setForeground(Color.BLACK);
-            if(s.edellinenListassa()!=null && !s.edellinenListassa().getKey().equals(s.getKey())){
-            int[] edellisetKoordinaatit = jaaKoordinaatti(s.edellinenListassa().getKey());
-                solmut[edellisetKoordinaatit[0]][edellisetKoordinaatit[1]].setBackground(Color.BLUE);
-                solmut[edellisetKoordinaatit[0]][edellisetKoordinaatit[1]].setForeground(Color.BLUE);
+            if (s.edellinenListassa() != null && !s.edellinenListassa().getKey().equals(s.getKey())) {
+                int[] edellisetKoordinaatit = jaaKoordinaatti(s.edellinenListassa().getKey());
+                solmut[edellisetKoordinaatit[0]][edellisetKoordinaatit[1]].setBackground(Color.GRAY);
+                solmut[edellisetKoordinaatit[0]][edellisetKoordinaatit[1]].setForeground(Color.GRAY);
             }
             if (s.seuraavaListassa() == null) {
                 etene.setEnabled(false);
-                
-                while(!(koordinaatit[0] ==alku_i && koordinaatit[1]==alku_j)){
-                   koordinaatit = jaaKoordinaatti(s.getKey());
-                   solmut[koordinaatit[0]][koordinaatit[1]].setBackground(Color.ORANGE);
+                s = nopeinReitti.listanAlku();
+                while (s!= null) {
+                    koordinaatit = jaaKoordinaatti(s.getKey());
+                    solmut[koordinaatit[0]][koordinaatit[1]].setBackground(Color.ORANGE);
                     solmut[koordinaatit[0]][koordinaatit[1]].setForeground(Color.ORANGE);
-                    s = s.edellinenListassa();
+                    s=s.seuraavaListassa();
                 }
-            } else if(s.seuraavaListassa()!=null){
+                solmut[maali_i][maali_j].setBackground(Color.GREEN);
+                solmut[maali_i][maali_j].setForeground(Color.GREEN);
+                solmut[alku_i][alku_j].setBackground(Color.BLUE);
+                solmut[alku_i][alku_j].setForeground(Color.BLUE);
+            } else if (s.seuraavaListassa() != null) {
                 s = s.seuraavaListassa();
             }
 
@@ -141,37 +148,23 @@ public class GUI extends JFrame implements ActionListener {
                         maali_i = i;
                         maali_j = j;
                     }
+                    if (solmut[i][j].getBackground().equals(Color.ORANGE)) {
+                        solmut[i][j].setBackground(Color.WHITE);
+                        solmut[i][j].setForeground(Color.WHITE);
+                    }
                 }
             }
-            if(alku_i==-1){
-              JOptionPane.showMessageDialog(this, "Anna alkupiste", "HUOM!", JOptionPane.ERROR_MESSAGE);
+            if (alku_i == -1) {
+                JOptionPane.showMessageDialog(this, "Anna alkupiste", "HUOM!", JOptionPane.ERROR_MESSAGE);
+            } else if (maali_i == -1) {
+                JOptionPane.showMessageDialog(this, "Anna maali", "HUOM!", JOptionPane.ERROR_MESSAGE);
+            } else {
+                etene.setEnabled(true);
+                IDA ida = new IDA(verkko, maali_i, maali_j, alku_i, alku_j);
+                jono = ida.palautaJono();
+                nopeinReitti = ida.palautaNopeinReitti();
+                s = jono.listanAlku();
             }
-            else if(maali_i==-1){
-             JOptionPane.showMessageDialog(this, "Anna maali", "HUOM!", JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-            IDA ida = new IDA(verkko, maali_i, maali_j, alku_i, alku_j);
-            reitti = ida.palautaReitti();
-            s = reitti.listanAlku();
-            }
-            /*
-             * Solmu s = reitti.listanAlku(); int g=260; int b=-5; Color vari =
-             * new Color(0,255,0); while (s != null) { System.out.println(s);
-             * int[] koordinaatit = jaaKoordinaatti(s.getKey());
-             * if(koordinaatit[0]==alku_i && koordinaatit[1]==alku_j){
-             * System.out.println("vaihdetaan varia"); vari=new
-             * Color(0,g-10,b+10); } else if(koordinaatit[0]==maali_i &&
-             * koordinaatit[1]==maali_j){
-             *
-             * }
-             * else
-             * if(solmut[koordinaatit[0]][koordinaatit[1]].getBackground().equals(Color.WHITE)){
-             * solmut[koordinaatit[0]][koordinaatit[1]].setBackground(vari);
-             * solmut[koordinaatit[0]][koordinaatit[1]].setForeground(vari); }
-             * s=s.seuraavaListassa();
-            }
-             */
-
         }
 
 

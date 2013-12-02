@@ -112,7 +112,14 @@ public class GUI extends JFrame implements ActionListener {
             }
             if (s.seuraavaListassa() == null) {
                 etene.setEnabled(false);
-            } else {
+                
+                while(!(koordinaatit[0] ==alku_i && koordinaatit[1]==alku_j)){
+                   koordinaatit = jaaKoordinaatti(s.getKey());
+                   solmut[koordinaatit[0]][koordinaatit[1]].setBackground(Color.ORANGE);
+                    solmut[koordinaatit[0]][koordinaatit[1]].setForeground(Color.ORANGE);
+                    s = s.edellinenListassa();
+                }
+            } else if(s.seuraavaListassa()!=null){
                 s = s.seuraavaListassa();
             }
 
@@ -136,9 +143,17 @@ public class GUI extends JFrame implements ActionListener {
                     }
                 }
             }
+            if(alku_i==-1){
+              JOptionPane.showMessageDialog(this, "Anna alkupiste", "HUOM!", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(maali_i==-1){
+             JOptionPane.showMessageDialog(this, "Anna maali", "HUOM!", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
             IDA ida = new IDA(verkko, maali_i, maali_j, alku_i, alku_j);
             reitti = ida.palautaReitti();
             s = reitti.listanAlku();
+            }
             /*
              * Solmu s = reitti.listanAlku(); int g=260; int b=-5; Color vari =
              * new Color(0,255,0); while (s != null) { System.out.println(s);

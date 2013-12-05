@@ -10,8 +10,8 @@ public class GUI extends JFrame implements ActionListener {
     private JButton[][] solmut;
     private Lista jono;
     private Lista nopeinReitti;
-    private int i = 20; //verkon koko
-    private int j = 20;
+    private int solmut_i = 20; //verkon koko
+    private int solmut_j = 20;
     private int alku_i = -1;
     private int alku_j = -1;
     private int maali_i = -1;
@@ -20,7 +20,7 @@ public class GUI extends JFrame implements ActionListener {
     private JButton etene;
     private JButton etsi;
     private JButton reset;
-    //final JButton random;
+    private JButton random;
     //SIISTI TÄMÄ!!!
 
     public GUI() {
@@ -29,7 +29,7 @@ public class GUI extends JFrame implements ActionListener {
         JPanel reittiPaneeli = new JPanel(); //paneeli reiteille
         GridLayout grid = new GridLayout(20, 20);
         reittiPaneeli.setLayout(grid);
-        solmut = new JButton[i][j];  //solmut
+        solmut = new JButton[solmut_i][solmut_j];  //solmut
         for (int i = 0; i < solmut.length; i++) {
             for (int j = 0; j < solmut[0].length; j++) {
 
@@ -58,6 +58,9 @@ public class GUI extends JFrame implements ActionListener {
         reset = new JButton("Reset");
         reset.addActionListener(this);
         nappiPaneeli.add(reset);
+        random = new JButton("Random");
+        random.addActionListener(this);
+        nappiPaneeli.add(random);
 
 
     }
@@ -89,19 +92,7 @@ public class GUI extends JFrame implements ActionListener {
             }
 
         } else if (nappi.equals("Reset")) {
-            etene.setEnabled(false);
-            for (int i = 0; i < solmut.length; i++) {
-                for (int j = 0; j < solmut[0].length; j++) {
-                    solmut[i][j].setBackground(Color.WHITE);
-                    solmut[i][j].setForeground(Color.WHITE);
-                    alku_i = -1;
-                    alku_j = -1;
-                    maali_i = -1;
-                    maali_j = -1;
-
-                }
-            }
-            repaint();
+            reset();
         } else if (nappi.equals("Etene")) {
 
 
@@ -177,6 +168,37 @@ public class GUI extends JFrame implements ActionListener {
                     s = jono.listanAlku();
                 }
             }
+        } else if (nappi.equals("Random")) {
+            reset();
+            for (int i = 0; i < solmut.length; i++) {
+                for (int j = 0; j < solmut[0].length; j++) {
+                    int kivi = rnd(4);
+                    if (kivi == 3) {
+                        solmut[i][j].setBackground(Color.RED);
+                        solmut[i][j].setForeground(Color.RED);
+
+                    }
+                }
+            }
+            int maali_i = rnd(solmut.length);
+            int maali_j = rnd(solmut[0].length);
+            solmut[maali_i][maali_j].setBackground(Color.GREEN);  //solmusta tulee maali
+            solmut[maali_i][maali_j].setForeground(Color.GREEN);
+            int alku_i = rnd(solmut.length);
+            int alku_j = rnd(solmut[0].length);
+            solmut[alku_i][alku_j].setBackground(Color.BLUE);  //solmusta tulee alku
+            solmut[alku_i][alku_j].setForeground(Color.BLUE);
+            while (maali_i == alku_i && maali_j == alku_j) {
+                alku_i = rnd(solmut.length);
+                alku_j = rnd(solmut[0].length);
+                 solmut[alku_i][alku_j].setBackground(Color.BLUE);  //solmusta tulee alku
+            solmut[alku_i][alku_j].setForeground(Color.BLUE);
+            }
+            System.out.print("Maali i:" + maali_i);
+            System.out.println(" j:" + maali_j);
+            System.out.print("Alku i:" + alku_i);
+            System.out.println(" j:" + alku_j);
+
         }
 
 
@@ -194,5 +216,25 @@ public class GUI extends JFrame implements ActionListener {
             return false;
         }
         return true;
+    }
+
+    private static int rnd(int vali) {
+        return (int) (Math.random() * vali);
+    }
+
+    private void reset() {
+        etene.setEnabled(false);
+        for (int i = 0; i < solmut.length; i++) {
+            for (int j = 0; j < solmut[0].length; j++) {
+                solmut[i][j].setBackground(Color.WHITE);
+                solmut[i][j].setForeground(Color.WHITE);
+                alku_i = -1;
+                alku_j = -1;
+                maali_i = -1;
+                maali_j = -1;
+
+            }
+        }
+        repaint();
     }
 }

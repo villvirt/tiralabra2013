@@ -21,6 +21,7 @@ public class GUI extends JFrame implements ActionListener {
     private JButton etsi;
     private JButton reset;
     private JButton random;
+    private JButton loput;
     //SIISTI TÄMÄ!!!
 
     public GUI() {
@@ -55,6 +56,10 @@ public class GUI extends JFrame implements ActionListener {
         etene.addActionListener(this);
         nappiPaneeli.add(etene);
         etene.setEnabled(false);
+        loput = new JButton("Etene maaliin");
+        loput.addActionListener(this);
+        nappiPaneeli.add(loput);
+        loput.setEnabled(false);
         reset = new JButton("Reset");
         reset.addActionListener(this);
         nappiPaneeli.add(reset);
@@ -65,14 +70,14 @@ public class GUI extends JFrame implements ActionListener {
         maaliTeksti.setForeground(Color.green);
         maaliTeksti.setMaximumSize(new Dimension(50, 20));
         JTextArea alkuTeksti = new JTextArea("Alku");
-         alkuTeksti.setForeground(Color.blue);
+        alkuTeksti.setForeground(Color.blue);
         alkuTeksti.setMaximumSize(new Dimension(50, 20));
         JTextArea esteTeksti = new JTextArea("Este");
-         esteTeksti.setForeground(Color.red);
-         esteTeksti.setMaximumSize(new Dimension(50, 20));
-         nappiPaneeli.add(maaliTeksti);
-         nappiPaneeli.add(alkuTeksti);
-         nappiPaneeli.add(esteTeksti);
+        esteTeksti.setForeground(Color.red);
+        esteTeksti.setMaximumSize(new Dimension(50, 20));
+        nappiPaneeli.add(maaliTeksti);
+        nappiPaneeli.add(alkuTeksti);
+        nappiPaneeli.add(esteTeksti);
 
     }
 
@@ -117,7 +122,7 @@ public class GUI extends JFrame implements ActionListener {
             }
             if (s.seuraavaListassa() == null) {
                 etene.setEnabled(false);
-
+                loput.setEnabled(false);
                 s = nopeinReitti.listanAlku();
                 while (s != null) {
                     koordinaatit = jaaKoordinaatti(s.getKey());
@@ -137,6 +142,30 @@ public class GUI extends JFrame implements ActionListener {
                 s = s.seuraavaListassa();
             }
 
+
+
+        } else if (nappi.equals("Etene maaliin")) {
+            int[] koordinaatit;
+            while (s != null) {
+                koordinaatit = jaaKoordinaatti(s.getKey());
+                solmut[koordinaatit[0]][koordinaatit[1]].setBackground(Color.GRAY);
+                solmut[koordinaatit[0]][koordinaatit[1]].setForeground(Color.GRAY);
+                s = s.seuraavaListassa();
+
+            }
+            etene.setEnabled(false);
+            loput.setEnabled(false);
+            s = nopeinReitti.listanAlku();
+            while (s != null) {
+                koordinaatit = jaaKoordinaatti(s.getKey());
+                solmut[koordinaatit[0]][koordinaatit[1]].setBackground(Color.ORANGE);
+                solmut[koordinaatit[0]][koordinaatit[1]].setForeground(Color.ORANGE);
+                s = s.seuraavaListassa();
+            }
+            solmut[maali_i][maali_j].setBackground(Color.GREEN);
+            solmut[maali_i][maali_j].setForeground(Color.GREEN);
+            solmut[alku_i][alku_j].setBackground(Color.BLUE);
+            solmut[alku_i][alku_j].setForeground(Color.BLUE);
 
 
         } else if (nappi.equals("Etsi")) {
@@ -176,6 +205,7 @@ public class GUI extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "Reittiä ei löytynyt!", "HUOM!", JOptionPane.ERROR_MESSAGE);
                 } else {
                     etene.setEnabled(true);
+                    loput.setEnabled(true);
                     s = jono.listanAlku();
                 }
             }
@@ -202,8 +232,8 @@ public class GUI extends JFrame implements ActionListener {
             while (maali_i == alku_i && maali_j == alku_j) {
                 alku_i = rnd(solmut.length);
                 alku_j = rnd(solmut[0].length);
-                 solmut[alku_i][alku_j].setBackground(Color.BLUE);  //solmusta tulee alku
-            solmut[alku_i][alku_j].setForeground(Color.BLUE);
+                solmut[alku_i][alku_j].setBackground(Color.BLUE);  //solmusta tulee alku
+                solmut[alku_i][alku_j].setForeground(Color.BLUE);
             }
             System.out.print("Maali i:" + maali_i);
             System.out.println(" j:" + maali_j);
@@ -235,6 +265,7 @@ public class GUI extends JFrame implements ActionListener {
 
     private void reset() {
         etene.setEnabled(false);
+        loput.setEnabled(false);
         for (int i = 0; i < solmut.length; i++) {
             for (int j = 0; j < solmut[0].length; j++) {
                 solmut[i][j].setBackground(Color.WHITE);

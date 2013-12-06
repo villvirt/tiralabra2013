@@ -61,7 +61,18 @@ public class GUI extends JFrame implements ActionListener {
         random = new JButton("Random");
         random.addActionListener(this);
         nappiPaneeli.add(random);
-
+        JTextArea maaliTeksti = new JTextArea("Maali");
+        maaliTeksti.setForeground(Color.green);
+        maaliTeksti.setMaximumSize(new Dimension(50, 20));
+        JTextArea alkuTeksti = new JTextArea("Alku");
+         alkuTeksti.setForeground(Color.blue);
+        alkuTeksti.setMaximumSize(new Dimension(50, 20));
+        JTextArea esteTeksti = new JTextArea("Este");
+         esteTeksti.setForeground(Color.red);
+         esteTeksti.setMaximumSize(new Dimension(50, 20));
+         nappiPaneeli.add(maaliTeksti);
+         nappiPaneeli.add(alkuTeksti);
+         nappiPaneeli.add(esteTeksti);
 
     }
 
@@ -158,7 +169,7 @@ public class GUI extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Anna maali", "HUOM!", JOptionPane.ERROR_MESSAGE);
             } else {
 
-                IDA ida = new IDA(verkko, maali_i, maali_j, alku_i, alku_j);
+                IDA ida = new IDA(verkko, maali_i, maali_j, alku_i, alku_j, true);
                 jono = ida.palautaJono();
                 nopeinReitti = ida.palautaNopeinReitti();
                 if (nopeinReitti.listanAlku() == null) {
